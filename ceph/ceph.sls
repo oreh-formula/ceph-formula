@@ -24,7 +24,6 @@ ceph:
 
 /etc/sudoers.d/ceph:
   file.exists
-    - mode: "0440"
     - require:
       - user: ceph
 
@@ -35,3 +34,9 @@ ceph-sudo:
     - require:
       - user: ceph
       - file: /etc/sudoers.d/ceph
+  cmd.run:
+    - chmod 0440 /etc/sudoers.d/ceph
+    - require:
+      - user: ceph
+      - file: /etc/sudoers.d/ceph
+
