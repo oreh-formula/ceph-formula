@@ -22,8 +22,9 @@ ceph:
     - groups:
       - wheel
 
-/etc/sudoers.d/ceph:
+ceph-sudo-file:
   file.touch:
+    - name: /etc/sudoers.d/ceph
     - mode: 0440
     - require:
       - user: ceph
@@ -34,4 +35,4 @@ ceph-sudo:
     - text: ceph ALL = (root) NOPASSWD:ALL
     - require:
       - user: ceph
-      - file: /etc/sudoers.d/ceph
+      - file: ceph-sudo-file
