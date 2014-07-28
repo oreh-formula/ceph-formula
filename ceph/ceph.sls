@@ -14,3 +14,24 @@ ceph-repo:
 ceph-deploy:
   pkg.installed
 
+
+ceph:
+  user.present:
+    - fullname: Ceph
+    - home: /home/ceph
+    - groups:
+      - wheel
+
+/etc/sudoers.d/ceph:
+  file.exists
+    - mode: 0440
+    - require:
+      - user: ceph
+
+ceph-sudo:
+  file.append:
+    - name: /etc/sudoers.d/ceph
+    - text: ceph ALL = (root) NOPASSWD:ALL
+    - require:
+      - user: ceph
+      - file: /etc/sudoers.d/ceph
