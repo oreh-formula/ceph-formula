@@ -9,4 +9,6 @@ ceph-repo:
     - gpgcheck: 1
     - gpgkey: https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
 
+ceph-deploy:
+  pkg.installed
 
