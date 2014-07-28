@@ -23,7 +23,8 @@ ceph:
       - wheel
 
 /etc/sudoers.d/ceph:
-  file.exists
+  file.exists:
+    - mode: 0440
     - require:
       - user: ceph
 
@@ -31,11 +32,6 @@ ceph-sudo:
   file.append:
     - name: /etc/sudoers.d/ceph
     - text: ceph ALL = (root) NOPASSWD:ALL
-    - require:
-      - user: ceph
-      - file: /etc/sudoers.d/ceph
-  cmd.run:
-    - chmod 0440 /etc/sudoers.d/ceph
     - require:
       - user: ceph
       - file: /etc/sudoers.d/ceph
