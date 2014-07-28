@@ -23,7 +23,7 @@ ceph:
       - wheel
 
 /etc/sudoers.d/ceph:
-  file.exists:
+  file.touch:
     - mode: 0440
     - require:
       - user: ceph
