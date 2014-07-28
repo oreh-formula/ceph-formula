@@ -27,8 +27,11 @@ ceph:
     - mode: 0440
     - require:
       - user: ceph
+
+ceph-sudo:
   file.append:
+    - name: /etc/sudoers.d/ceph
     - text: ceph ALL = (root) NOPASSWD:ALL
     - require:
       - user: ceph
-
+      - file: /etc/sudoers.d/ceph
