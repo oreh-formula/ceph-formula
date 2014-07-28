@@ -24,7 +24,7 @@ ceph:
 
 /etc/sudoers.d/ceph:
   file.exists
-    - mode: 0440
+    - mode: "0440"
     - require:
       - user: ceph
 
