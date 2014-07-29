@@ -1,15 +1,24 @@
 {% set ceph_release = "firefly" %}
 {% set distro = "el6" %}
 {% set release = "el6" %}
-ceph-repo:
-  pkgrepo.managed:
-    - humanname: Ceph Repo
-    - baseurl: http://ceph.com/rpm-{{ceph_release}}/{{distro}}/noarch
-    - file: /etc/yum/yum.repos.d/ceph.repo
-    - gpgcheck: 1
-    - gpgkey: https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
-    - require_in:
-      - pkg: ceph-deploy
+
+add_ceph_repo_key:
+  cmd.run:
+    - name: rpm --import 'https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc'
+
+add_ceph_repo:
+  cmd.run:
+    - name: rpm -Uvh http://ceph.com/rpms/{{distro}}/x86_64/ceph-{{release}}.el6.noarch.rpm
+
+add_ceph_extra_repo:
+  file.managed:
+    - source: salt://ceph/templates/ceph-extra.repo
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+        distro: {{ distro }}
 
 ceph-deploy:
   pkg.installed
@@ -36,3 +45,4 @@ ceph-sudo:
     - require:
       - user: ceph
       - file: ceph-sudo-file
+
