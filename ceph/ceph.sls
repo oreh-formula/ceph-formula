@@ -1,14 +1,4 @@
-{% set ceph_release = "firefly" %}
 {% set distro = "el6" %}
-{% set release = "el6" %}
-
-add_ceph_repo_key:
-  cmd.run:
-    - name: rpm --import 'https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc'
-
-add_ceph_repo:
-  cmd.run:
-    - name: rpm -Uvh http://ceph.com/rpms/{{distro}}/x86_64/ceph-{{release}}.el6.noarch.rpm
 
 add_ceph_extra_repo:
   file.managed:
