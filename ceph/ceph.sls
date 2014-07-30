@@ -49,12 +49,7 @@ ceph_fastcgi_repo:
 
 ceph_dependency_pgks:
   pkg.installed:
-    - pkgs:
-      - snappy
-      - leveldb
-      - gdisk
-      - python-argparse
-      - gperftools-libs
+    - name: ceph
     - require:
       - file: ceph_repo
       - file: ceph_extra_repo
