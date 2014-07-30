@@ -1,6 +1,6 @@
 [ceph-extras]
 name=Ceph Extras Packages
-baseurl=http://ceph.com/packages/ceph-extras/rpm/{{distro}}/$basearch
+baseurl=http://ceph.com/packages/ceph-extras/rpm/{{full_distro}}/$basearch
 enabled=1
 priority=2
 gpgcheck=1
@@ -9,7 +9,7 @@ gpgkey=https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
 
 [ceph-extras-noarch]
 name=Ceph Extras noarch
-baseurl=http://ceph.com/packages/ceph-extras/rpm/{{distro}}/noarch
+baseurl=http://ceph.com/packages/ceph-extras/rpm/{{full_distro}}/noarch
 enabled=1
 priority=2
 gpgcheck=1
@@ -18,7 +18,7 @@ gpgkey=https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
 
 [ceph-extras-source]
 name=Ceph Extras Sources
-baseurl=http://ceph.com/packages/ceph-extras/rpm/{{distro}}/SRPMS
+baseurl=http://ceph.com/packages/ceph-extras/rpm/{{full_distro}}/SRPMS
 enabled=1
 priority=2
 gpgcheck=1

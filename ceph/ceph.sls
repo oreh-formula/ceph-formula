@@ -1,6 +1,20 @@
 {% set distro = "el6" %}
+{% set full_distro = "centos6" %}
+{% set ceph_release = "firefly" %}
 
-add_ceph_extra_repo:
+ceph_repo:
+  file.managed:
+    - source: salt://ceph/templates/ceph.repo
+    - name: /etc/yum.repos.d/ceph.repo
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+        distro: {{ distro }}
+        ceph_release: {{ ceph_release }}
+
+ceph_extra_repo:
   file.managed:
     - source: salt://ceph/templates/ceph-extra.repo
     - name: /etc/yum.repos.d/ceph-extra.repo
@@ -9,15 +23,29 @@ add_ceph_extra_repo:
     - mode: 644
     - template: jinja
     - context:
+        full_distro: {{ full_distro }}
+
+ceph_apache2_repo:
+  file.managed:
+    - source: salt://ceph/templates/ceph-apache2.repo
+    - name: /etc/yum.repos.d/ceph-apache2.repo
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
         distro: {{ distro }}
 
-dd_ceph_repo_key:
-  cmd.run:
-    - name: rpm --import 'https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc'
-   
-add_ceph_repo:
-  cmd.run:
-    - name: rpm -Uvh http://ceph.com/rpms/{{distro}}/x86_64/ceph-{{release}}.el6.noarch.rpm   
+ceph_fastcgi_repo:
+  file.managed:
+    - source: salt://ceph/templates/ceph-fastcgi.repo
+    - name: /etc/yum.repos.d/ceph-fastcgi.repo
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+        distro: {{ distro }}
 
 ceph:
   user.present:
