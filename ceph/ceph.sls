@@ -34,7 +34,7 @@ ceph_apache2_repo:
     - mode: 644
     - template: jinja
     - context:
-        distro: {{ distro }}
+        full_distro: {{ full_distro }}
 
 ceph_fastcgi_repo:
   file.managed:
@@ -45,7 +45,7 @@ ceph_fastcgi_repo:
     - mode: 644
     - template: jinja
     - context:
-        distro: {{ distro }}
+        full_distro: {{ full_distro }}
 
 ceph:
   user.present:
