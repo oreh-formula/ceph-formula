@@ -47,6 +47,20 @@ ceph_fastcgi_repo:
     - context:
         full_distro: {{ full_distro }}
 
+ceph_dependency_pgks:
+  pkg.installed:
+    - pkgs:
+      - snappy
+      - leveldb
+      - gdisk
+      - python-argparse
+      - gperftools-libs
+    - require:
+      - file: ceph_repo
+      - file: ceph_extra_repo
+      - file: ceph_apache2_repo
+      - file: ceph_fastcgi_repo
+
 ceph:
   user.present:
     - fullname: Ceph
